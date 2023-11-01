@@ -71,7 +71,6 @@ No JUnit, as assertivas desempenham um papel fundamental para verificar se o có
       
           assertSame("Essas duas referências apontam para o mesmo objeto", str1, str2);
       }
-    ```
 
     - **Exemplo de `assertSame` que retorna false**:
 
@@ -85,7 +84,6 @@ No JUnit, as assertivas desempenham um papel fundamental para verificar se o có
       
           assertSame("Essas duas referências apontam para objetos diferentes", str1, str2);
       }
-    ```
     
     - **Exemplo de `assertEquals`**:
 
