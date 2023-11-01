@@ -1,5 +1,12 @@
 # Estudo-testes-unitarios
 
+# Sumário
+1. [O que são testes unitários](#o-que-são-testes-unitários)
+2. [Princípio F.I.R.S.T](#princípio-first)
+3. [Asserts no JUnit](#asserts-no-junit)
+   3.1. [Asserts Básicos](#asserts-básicos)
+   3.2. [Asserts com Objetos](#asserts-com-objetos)
+
 # O que são testes unitários
 
 Um **teste** é um procedimento ou processo no qual um sistema, componente ou função é avaliado para verificar se ele funciona conforme o esperado. Essa avaliação envolve a comparação das expectativas com os resultados reais, o que é fundamental para a validação de um sistema.
@@ -26,6 +33,8 @@ O princípio F.I.R.S.T. é uma abordagem fundamental para garantir a eficácia e
 
 # Asserts no JUnit
 
+## Asserts Básicos
+
 No JUnit, as assertivas desempenham um papel fundamental para verificar se o código do seu teste se comporta conforme o esperado. Elas ajudam a determinar se as condições definidas estão sendo atendidas, permitindo assim a validação da funcionalidade do software. Essas assertivas realizam a **autovalidação (Self-validating)**, o que significa que verificam automaticamente se as condições são verdadeiras ou falsas e relatarão o resultado sem a necessidade de intervenção manual. Abaixo, apresentamos uma lista de assertivas com explicações superficiais para ajudar a entender o que cada uma faz.
 
 - `assertTrue(x == y)`: Esta assertiva verifica se a expressão `x` é igual a `y` e retorna verdadeira (true). Ela é útil para verificar se duas variáveis são iguais.
@@ -44,23 +53,40 @@ No JUnit, as assertivas desempenham um papel fundamental para verificar se o có
 
 - `assertNotNull(objeto)`: Ao contrário da anterior, esta assertiva verifica se o objeto não é nulo.
 
+## Asserts com Objetos
+
 - `assertSame(objeto1, objeto2)`: Verifica se as duas referências `objeto1` e `objeto2` apontam para a mesma instância de objeto. É útil para verificar se duas variáveis referem-se ao mesmo objeto.
 
 - `assertEquals(objet1, objeto2)`: Esta assertiva verifica se os objetos `objet1` e `objeto2` são iguais de acordo com a implementação dos métodos `equals`. Sem a implementação adequada desse método na classe do objeto, eles não serão considerados iguais.
 
-    - **Exemplo de `assertSame`**:
+    - **Exemplo de `assertSame` que retorna true**:
 
-    ```java
-    import static org.junit.Assert.*;
-
-    @Test
-    public void testSameObject() {
-        String str1 = new String("Hello");
-        String str2 = str1;
-    
-        assertSame(str1, str2);
+      ```java
+      import static org.junit.Assert.*;
+      
+      @Test
+      public void testSameObjectTrue() {
+          String str1 = new String("Hello");
+          String str2 = str1;
+      
+          assertSame("Essas duas referências apontam para o mesmo objeto", str1, str2);
+      }
     ```
 
+    - **Exemplo de `assertSame` que retorna false**:
+
+      ```java
+      import static org.junit.Assert.*;
+      
+      @Test
+      public void testSameObjectFalse() {
+          String str1 = new String("Hello");
+          String str2 = new String("Hello");
+      
+          assertSame("Essas duas referências apontam para objetos diferentes", str1, str2);
+      }
+    ```
+    
     - **Exemplo de `assertEquals`**:
 
     ```java
