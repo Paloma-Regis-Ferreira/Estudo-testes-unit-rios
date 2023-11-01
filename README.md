@@ -24,3 +24,52 @@ O princípio F.I.R.S.T. é uma abordagem fundamental para garantir a eficácia e
   - **Timely (Oportuno)**: O princípio "Timely" refere-se ao momento em que os testes são realizados, enfatizando que eles devem ser feitos, por exemplo, assim que cada função desse módulo é implementada. Isso permite a detecção precoce de problemas de lógica ou cálculos incorretos no início do processo de desenvolvimento, facilitando correções imediatas.
   - **Thorough (Abrangente)**: Esse princípio destaca a necessidade de testes abrangentes que cubram todas as situações possíveis, não se restringindo apenas ao cenário ideal. Isso garante que os testes sejam capazes de identificar problemas em uma variedade de condições e cenários, tornando o código mais robusto e confiável.
 
+# Asserts no JUnit
+
+No JUnit, as assertivas desempenham um papel fundamental para verificar se o código do seu teste se comporta conforme o esperado. Elas ajudam a determinar se as condições definidas estão sendo atendidas, permitindo assim a validação da funcionalidade do software. Essas assertivas realizam a **autovalidação (Self-validating)**, o que significa que verificam automaticamente se as condições são verdadeiras ou falsas e relatarão o resultado sem a necessidade de intervenção manual. Abaixo, apresentamos uma lista de assertivas com explicações superficiais para ajudar a entender o que cada uma faz.
+
+- `assertTrue(x == y)`: Esta assertiva verifica se a expressão `x` é igual a `y` e retorna verdadeira (true). Ela é útil para verificar se duas variáveis são iguais.
+
+- `assertFalse(x == y)`: Semelhante à anterior, mas verifica se a expressão `x` é diferente de `y`, retornando verdadeira (true) se forem diferentes.
+
+- `assertEquals(esperadoPrimeiro, recebidoDepois)`: Verifica se o valor `esperadoPrimeiro` é igual ao valor `recebidoDepois`. Esta assertiva é comumente usada para testar resultados de funções ou métodos.
+
+    - **Importância da Ordem no `assertEquals`**: Inverter a ordem dos parâmetros no `assertEquals` pode levar a interpretações incorretas dos resultados dos testes. Certifique-se de que a ordem esteja correta para que a comparação seja feita de forma precisa.
+
+- `assertNotEquals(esperadoPrimeiro, recebidoDepois)`: Esta assertiva verifica se o valor `esperadoPrimeiro` é diferente do valor `recebidoDepois`.
+
+- `assertFalse(casa.equalsIgnoreCase(Casa))`: Essa assertiva envolve funções de string e verifica se a string `casa` não é igual à string `Casa`, ignorando diferenças de maiúsculas e minúsculas.
+
+- `assertNull(objeto)`: Verifica se o objeto é nulo (null). É útil para garantir que uma variável ou referência aponte para um objeto nulo.
+
+- `assertNotNull(objeto)`: Ao contrário da anterior, esta assertiva verifica se o objeto não é nulo.
+
+- `assertSame(objeto1, objeto2)`: Verifica se as duas referências `objeto1` e `objeto2` apontam para a mesma instância de objeto. É útil para verificar se duas variáveis referem-se ao mesmo objeto.
+
+- `assertEquals(objet1, objeto2)`: Esta assertiva verifica se os objetos `objet1` e `objeto2` são iguais de acordo com a implementação dos métodos `equals`. Sem a implementação adequada desse método na classe do objeto, eles não serão considerados iguais.
+
+    - **Exemplo de `assertSame`**:
+
+    ```java
+    import static org.junit.Assert.*;
+
+    @Test
+    public void testSameObject() {
+        String str1 = new String("Hello");
+        String str2 = str1;
+    
+        assertSame(str1, str2);
+    ```
+
+    - **Exemplo de `assertEquals`**:
+
+    ```java
+    import static org.junit.Assert.*;
+
+    @Test
+    public void testObjectEquality() {
+        Person person1 = new Person("Alice", 30);
+        Person person2 = new Person("Alice", 30);
+    
+        assertEquals(person1, person2);
+    ```
