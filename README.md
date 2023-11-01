@@ -85,15 +85,28 @@ No JUnit, as assertivas desempenham um papel fundamental para verificar se o có
           assertSame("Essas duas referências apontam para objetos diferentes", str1, str2);
       }
     
-    - **Exemplo de `assertEquals`**:
-
-    ```java
-    import static org.junit.Assert.*;
-
-    @Test
-    public void testObjectEquality() {
-        Person person1 = new Person("Alice", 30);
-        Person person2 = new Person("Alice", 30);
+    - **Exemplo de `assertEquals` que retorna true**:
+   
+       ```java
+       import static org.junit.Assert.*;
+   
+       @Test
+       public void testObjectEquality() {
+           Person person1 = new Person("Alice", 30);
+           Person person2 = new Person("Alice", 30);
     
         assertEquals(person1, person2);
-    ```
+
+           
+    - **Exemplo de `assertEquals` que retorna false**:
+   
+       ```java
+       import static org.junit.Assert.*;
+   
+       @Test
+       public void testObjectEquality() {
+           Person person1 = new Person("Alice", 30);
+           Person person2 = new Person("Ana", 30);
+    
+        assertEquals(person1, person2);
+       ```
