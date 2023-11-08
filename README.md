@@ -132,7 +132,10 @@ Um **erro** em um teste ocorre quando o teste lança uma exceção não esperada
 ## Tratamento de exceções
 Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esperando uma determinada exceção ao executar uma ação, o teste deve funcionar. Se a exceção esperada não for lançada ou se for lançada uma outra exceção que não é a que estamos tratando no teste, o teste geralmente falhará, lançando uma exceção que indica a falha. Portanto, ao tratar exceções dentro do teste, devemos ser o mais específicos possível sobre qual exceção estamos tratando.
 
-      ```java
+   
+       ```java
+       import static org.junit.Assert.*;
+   
       @Test
       public void deveLancarExcecaoComDivisaoPorZero_blocoTryCatch(){
       try {
@@ -143,5 +146,4 @@ Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esp
       Assertions.assertEquals("/ by zero", e.getMessage());
       }
       }
-      ```
 
