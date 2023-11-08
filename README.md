@@ -37,7 +37,7 @@ O princípio F.I.R.S.T. é uma abordagem fundamental para garantir a eficácia e
 
 ## Asserts Básicos
 
-No JUnit, as assertivas desempenham um papel fundamental para verificar se o código do seu teste se comporta conforme o esperado. Elas ajudam a determinar se as condições definidas estão sendo atendidas, permitindo assim a validação da funcionalidade do software. Essas assertivas realizam a **autovalidação (Self-validating)**, o que significa que verificam automaticamente se as condições são verdadeiras ou falsas e relatarão o resultado sem a necessidade de intervenção manual. Abaixo, apresentamos uma lista de assertivas com explicações superficiais para ajudar a entender o que cada uma faz.
+As assertivas são declarações adicionadas aos testes e desempenham um papel fundamental: verificar se o código do seu teste se comporta conforme o esperado, ou seja, se as condições esperadas são verdadeiras. Elas ajudam a determinar se as condições definidas estão sendo atendidas, permitindo assim a validação da funcionalidade do software. Essas assertivas realizam a **autovalidação (Self-validating)**, o que significa que verificam automaticamente se as condições são verdadeiras ou falsas e relatam o resultado sem a necessidade de intervenção manual. Abaixo, apresentamos uma lista de assertivas com explicações breves para ajudar a entender o que cada uma faz
 
 - `assertTrue(x == y)`: Esta assertiva verifica se a expressão `x` é igual a `y` e retorna verdadeira (true). Ela é útil para verificar se duas variáveis são iguais.
 
@@ -111,4 +111,36 @@ No JUnit, as assertivas desempenham um papel fundamental para verificar se o có
            Person person2 = new Person("Ana", 30);
     
         assertEquals(person1, person2);
+       ```
+
+
+## Asserts com float
+- `assertEquals(esperadoPrimeiro, recebidoDepois, 0,01)`: O valor 0,01 é um delta de comparação, se o valor recebido como resposta for muito grande em casas decimais ele pode ser acrescido e aceitará o encurtamento desse valor, por exemplo:
+  Supondo que o valor recebido seja 3,33336:
+- `assertEquals(3,14, valorRecebido, 0,01)
+- `assertEquals(3,13, valorRecebido, 0,01)
+
+
+## Falha vs.Erro
+Uma **falha** em um teste ocorre quando uma assertiva espera um valor específico, mas o resultado obtido não corresponde ao esperado. Isso pode acontecer quando o código testado não produz o resultado previsto. Para lidar com essa situação, as assertivas geralmente lançam uma exceção chamada **'AssertionFailedError'** quando a condição não é atendida que é **tratada** pelo próprio framework do Junit.
+
+Um **erro** em um teste ocorre quando o teste lança uma exceção não esperada. Isso geralmente acontece quando o código testado gera uma exceção **não tratada** durante a execução do teste, e o teste não foi projetado para lidar com essa exceção.
+
+É importante distinguir entre **falhas** e **erros**, pois as **falhas** indicam que o código não está funcionando conforme o esperado, enquanto os **erros** indicam problemas no próprio teste, como exceções **não tratadas**. Compreender essa diferença é fundamental para diagnosticar e corrigir problemas em seus testes de forma eficaz.
+
+
+## Tratamento de exceções
+Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esperando uma determinada exceção ao executar uma ação, o teste deve funcionar. Se a exceção esperada não for lançada ou se for lançada uma outra exceção que não é a que estamos tratando no teste, o teste geralmente falhará, lançando uma exceção que indica a falha. Portanto, ao tratar exceções dentro do teste, devemos ser o mais específicos possível sobre qual exceção estamos tratando.
+
+       ```java
+       @Test
+       public void deveLancarExcecaoComDivisaoPorZero_blocoTryCatch(){
+           try {
+               float resultado = 10 / 0;
+               Assertions.fail("Deveria ter lançado exceção na linha anterior");
+           }catch (ArithmeticException e){
+               //utilizar uma exceção especifica garante que a exceção esperada esta sendo lançada e não qualquer outra
+               Assertions.assertEquals("/ by zero", e.getMessage());
+           }
+       }
        ```
