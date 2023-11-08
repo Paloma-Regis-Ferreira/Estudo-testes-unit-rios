@@ -116,7 +116,7 @@ As assertivas são declarações adicionadas aos testes e desempenham um papel f
 
 ## Asserts com float
 - `assertEquals(esperadoPrimeiro, recebidoDepois, 0,01)`: O valor 0,01 é um delta de comparação, se o valor recebido como resposta for muito grande em casas decimais ele pode ser acrescido e aceitará o encurtamento desse valor, por exemplo:
-  Supondo que o valor recebido seja 3,33336:
+    - Supondo que o valor recebido seja 3,33336:
 - `assertEquals(3,14, valorRecebido, 0,01)
 - `assertEquals(3,13, valorRecebido, 0,01)
 
@@ -130,7 +130,7 @@ Um **erro** em um teste ocorre quando o teste lança uma exceção não esperada
 
 
 ## Tratamento de exceções
-Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esperando uma determinada exceção ao executar uma ação, o teste deve funcionar. Se a exceção esperada não for lançada ou se for lançada uma outra exceção que não é a que estamos tratando no teste, o teste geralmente falhará, lançando uma exceção que indica a falha. Portanto, ao tratar exceções dentro do teste, devemos ser o mais específicos possível sobre qual exceção estamos tratando.
+Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esperando uma determinada exceção ao executar uma ação, o teste deve funcionar. Se a exceção esperada não for lançada o teste falhará ou, se for lançada uma outra exceção que não é a que estamos tratando no teste, ocorrerá um erro. Portanto, ao tratar exceções dentro do teste, devemos ser o mais específicos possível sobre qual exceção estamos tratando.
 
    
        ```java
@@ -138,11 +138,23 @@ Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esp
    
       @Test
       public void deveLancarExcecaoComDivisaoPorZero_blocoTryCatch(){
-         try {
-            float resultado = 10 / 0;
-            Assertions.fail("Deveria ter lançado exceção na linha anterior");
-         }catch (ArithmeticException e){
-            Assertions.assertEquals("/ by zero", e.getMessage());
-         }
+          try {
+              float resultado = 10 / 0;
+              Assertions.fail("Deveria ter lançado exceção na linha anterior");
+          }catch (ArithmeticException e){
+              Assertions.assertEquals("/ by zero", e.getMessage());
+          }
       }
+
+
+       ```java
+       import static org.junit.Assert.*;
+       
+       @Test
+       public void deveLancarExcecaoComDivisaoPorZero_Lambda(){
+           ArithmeticException exception = assertThrows(ArithmeticException.class, () -> {
+               float resultado = 10/0;
+           });
+           Assertions.assertEquals("/ by zero", exception.getMessage());
+       }
       ```
