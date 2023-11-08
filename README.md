@@ -138,12 +138,12 @@ Quando tratamos exceções, ou seja, dizemos ao código de teste que estamos esp
    
       @Test
       public void deveLancarExcecaoComDivisaoPorZero_blocoTryCatch(){
-      try {
-      float resultado = 10 / 0;
-      Assertions.fail("Deveria ter lançado exceção na linha anterior");
-      }catch (ArithmeticException e){
-      //utilizar uma exceção específica garante que a exceção esperada está sendo lançada e não qualquer outra
-      Assertions.assertEquals("/ by zero", e.getMessage());
+         try {
+            float resultado = 10 / 0;
+            Assertions.fail("Deveria ter lançado exceção na linha anterior");
+         }catch (ArithmeticException e){
+            Assertions.assertEquals("/ by zero", e.getMessage());
+         }
       }
-      }
+      ```
 
