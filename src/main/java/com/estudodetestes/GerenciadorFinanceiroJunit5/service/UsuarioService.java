@@ -1,6 +1,7 @@
 package com.estudodetestes.GerenciadorFinanceiroJunit5.service;
 
 import com.estudodetestes.GerenciadorFinanceiroJunit5.barriga.domain.Usuario;
+import com.estudodetestes.GerenciadorFinanceiroJunit5.exceptions.ValidationException;
 import com.estudodetestes.GerenciadorFinanceiroJunit5.service.repositories.UsuarioRepository;
 
 public class UsuarioService {
@@ -12,6 +13,9 @@ public class UsuarioService {
     }
 
     public Usuario salvar(Usuario usuario){
+        repository.getByEmail(usuario.getEmail()).ifPresent(user -> {
+                throw new ValidationException(String.format("Usuario %s já cadastrado!", usuario.getEmail()));
+        });
         return repository.salvar(usuario);
     }
 }
