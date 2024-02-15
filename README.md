@@ -13,6 +13,9 @@
 5. [Parameterized](#parameterized)
    - [@ValueSource](#valuesource)
    - [@CsvSource](#csvsource)
+6. [Dummy Classes](#dummy-classes)
+   - [Utilidades](#utilidades)
+   - [Dummy Classes vs. Mocks](#dummy-classes-vs-mocks)
 
 
 # O que são testes unitários
@@ -171,6 +174,14 @@ Variáveis globais são declaradas fora de métodos e são acessíveis em todo o
 
 Se uma variável global for estática, ela pode ter seu valor compartilhado entre diferentes testes, o que pode levar a resultados inesperados se não for gerenciada adequadamente. Quando não estática, o JUnit considera o valor inicial dela para cada teste executado, descartando quaisquer alterações feitas por testes anteriores.
 
+### Ordem de execução
+Ao utilizar atributos de classe estaticos podemos ter problemas com a ordem de execução dos testes, um primeiro teste afetara o resultado de um segundo teste e se necessitar de uma ordem de execução especifica, isso causará erro. 
+É possível garantir a ordem de execução de testes pelo junit das seguintes formas
+Junit4 : Nomenclatura dos testes em ordem alfabetica, normalmente colocando um prefixo teste1_nomeDoTeste, teste2_nomeDoTeste...
+Junit5: O Junit5 tem uma notação de classe @TestMethodOrder que necessita de um parametro MethodOrderer. Podendo ser ordem alfabetica como o junit4 ou por exemplo, o OrderAnnotation que permite colocar os testes em ordem numerica acrescentando a anotação @Order(1) por exemplo.
+
+Apesar de possível, não é recomendado realizar testes dessa forma. De acordo com o principio FIRST cada teste deve ser individual e não criar cenários para outros testes, sendo eles individualmente responsaveis por criar seus proprios cenarios
+
 ### Anotações Before e After no JUnit
 
 No JUnit, as anotações `@Before` e `@After` (no JUnit 4) e `@BeforeEach` e `@AfterEach` (no JUnit 5) são usadas para configurar o estado dos testes antes e depois de cada execução. Essas anotações garantem que o ambiente de teste esteja configurado corretamente e que quaisquer recursos necessários estejam disponíveis durante a execução do teste.
@@ -218,4 +229,41 @@ Neste exemplo, o método testAdd será executado três vezes, uma vez para cada 
 
 Portanto, a principal diferença entre @ValueSource e @CsvSource é a maneira como os valores são fornecidos: @ValueSource é usado para fornecer um único valor por parâmetro, enquanto @CsvSource é usado para fornecer múltiplos valores estruturados por parâmetro.
 Portanto, a principal diferença entre @ValueSource e @CsvSource é a maneira como os valores são fornecidos: @ValueSource é usado para fornecer um único valor por parâmetro, enquanto @CsvSource é usado para fornecer múltiplos valores estruturados por parâmetro.
+
+## Dummy Classes
+
+As Dummy Classes, ou classes dummy, são importantes em testes de software, especialmente em testes de unidade. Elas são usadas para preencher requisitos de dependências durante os testes, sem fornecer implementação real.
+
+### Utilidades:
+
+- **Simulação de Dependências**: Substituir dependências irrelevantes para simplificar o ambiente de teste.
+- **Satisfazer Assinaturas de Métodos**: Fornecer implementações vazias para interfaces ou classes abstratas.
+- **Redução de Complexidade**: Simplificar o código de teste, tornando-o mais direto.
+- **Performance**: Melhorar a eficiência dos testes em cenários onde criar instâncias reais é custoso.
+
+É importante garantir que as Dummy Classes sejam apropriadas para o contexto específico do teste, para evitar falsos resultados nos testes. Por exemplo, se uma dependência está sendo usada ativamente durante o teste e sua implementação real é necessária para o teste ser válido, usar uma Dummy Class pode comprometer a validade do teste.
+
+## Dummy Classes vs. Mocks
+
+As Dummy Classes e Mocks são abordagens diferentes para lidar com dependências em testes de unidade.
+
+### Diferenças:
+
+- **Propósito**:
+  - Dummy Classes: Preenchem requisitos de assinatura de métodos ou representam dependências irrelevantes.
+  - Mocks: Simulam o comportamento de dependências reais, configurados com expectativas de uso durante o teste.
+
+- **Complexidade**:
+  - Dummy Classes: Simples, com implementações mínimas.
+  - Mocks: Mais complexos, podem simular comportamentos específicos e ser verificados durante o teste.
+
+- **Flexibilidade**:
+  - Dummy Classes: Menos flexíveis, oferecem implementações básicas.
+  - Mocks: Altamente flexíveis, podem ser configurados para comportamentos específicos.
+
+- **Interação com os testes**:
+  - Dummy Classes: Não são verificadas diretamente durante o teste, usadas para preencher lacunas de dependências.
+  - Mocks: São interagidos e verificados durante o teste.
+
+Em resumo, Dummy Classes são utilizadas para simplificar testes, enquanto Mocks simulam comportamentos específicos de dependências reais.
 
