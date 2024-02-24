@@ -6,7 +6,6 @@ import com.estudodetestes.GerenciadorFinanceiroJunit5.service.repositories.Usuar
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class UsuarioMemoryRepository implements UsuarioRepository {
 
@@ -14,9 +13,9 @@ public class UsuarioMemoryRepository implements UsuarioRepository {
     private Long currentId;
 
     public UsuarioMemoryRepository() {
-        this.usuarios = new ArrayList<>();;
-        this.currentId = currentId;
-        salvar(new Usuario(0L, "User #1", "user1@gmail.com", "12345"));
+        this.usuarios = new ArrayList<>();
+        this.currentId = 0L;
+        salvar(new Usuario(null, "User #1", "user1@gmail.com", "12345"));
     }
 
     @Override
@@ -43,6 +42,9 @@ public class UsuarioMemoryRepository implements UsuarioRepository {
 
     public static void main(String[] args) {
         UsuarioMemoryRepository repository = new UsuarioMemoryRepository();
+        repository.printUsers();
+        repository.salvar(new Usuario(null, "Paloma", "aa@mf", "2345565"));
+        repository.salvar(new Usuario(null, "p", "aa@mf", "2345565"));
         repository.printUsers();
     }
 }

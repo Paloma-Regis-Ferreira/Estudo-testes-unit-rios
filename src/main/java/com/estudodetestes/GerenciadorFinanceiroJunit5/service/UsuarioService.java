@@ -4,6 +4,8 @@ import com.estudodetestes.GerenciadorFinanceiroJunit5.barriga.domain.Usuario;
 import com.estudodetestes.GerenciadorFinanceiroJunit5.exceptions.ValidationException;
 import com.estudodetestes.GerenciadorFinanceiroJunit5.service.repositories.UsuarioRepository;
 
+import java.util.Optional;
+
 public class UsuarioService {
 
     private UsuarioRepository repository;
@@ -17,5 +19,9 @@ public class UsuarioService {
                 throw new ValidationException(String.format("Usuario %s já cadastrado!", usuario.getEmail()));
         });
         return repository.salvar(usuario);
+    }
+
+    public Optional<Usuario> getUserByEmail(String email){
+        return repository.getByEmail(email);
     }
 }

@@ -14,7 +14,6 @@ public class Usuario {
         if (nome == null) throw new ValidationException("Nome é obrigatorio");
         if (email == null) throw new ValidationException("Email é obrigatorio");
         if (senha == null) throw new ValidationException("Senha é obrigatorio");
-
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -48,5 +47,15 @@ public class Usuario {
     @Override
     public int hashCode() {
         return Objects.hash(nome, email, senha);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
     }
 }

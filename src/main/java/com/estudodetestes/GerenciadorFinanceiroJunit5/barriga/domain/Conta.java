@@ -2,6 +2,8 @@ package com.estudodetestes.GerenciadorFinanceiroJunit5.barriga.domain;
 
 import com.estudodetestes.GerenciadorFinanceiroJunit5.exceptions.ValidationException;
 
+import java.util.Objects;
+
 public class Conta {
 
     private Long id;
@@ -27,5 +29,27 @@ public class Conta {
 
     public Usuario usuario() {
         return usuario;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conta conta = (Conta) o;
+        return Objects.equals(id, conta.id) && Objects.equals(nome, conta.nome) && Objects.equals(usuario, conta.usuario);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, usuario);
+    }
+
+    @Override
+    public String toString() {
+        return "Conta{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", usuario=" + usuario +
+                '}';
     }
 }
