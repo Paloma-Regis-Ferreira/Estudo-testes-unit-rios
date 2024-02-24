@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UsuarioServiceTest {
 
+
     @InjectMocks
     //não é um mock pois é a classe usada, mas é onde todos os mocks são injetados
     private UsuarioService service;
