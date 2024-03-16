@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clona o repositório do GitHub
-                git 'https://github.com/Paloma-Regis-Ferreira/Estudo-testes-unitarios.git'
+                git branch: 'main', 'https://github.com/Paloma-Regis-Ferreira/Estudo-testes-unitarios.git'
             }
         }
         
