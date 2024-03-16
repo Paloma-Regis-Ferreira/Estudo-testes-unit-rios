@@ -16,6 +16,7 @@ pipeline {
             }
         }
 
+
         stage('Build') {
             steps {
                 // Compila o projeto Maven
