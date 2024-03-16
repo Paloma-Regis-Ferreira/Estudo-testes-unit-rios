@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clona o repositório do GitHub
-                git 'https://github.com/seu-usuario/seu-repositorio.git'
+                git 'https://github.com/Paloma-Regis-Ferreira/Estudo-testes-unitarios.git'
             }
         }
         
@@ -23,11 +23,11 @@ pipeline {
             }
         }
     }
-    
-    post {
-        always {
-            // Publica os resultados dos testes
-            junit '**/target/surefire-reports/*.xml'
-        }
-    }
+//
+//     post {
+//         always {
+//             // Publica os resultados dos testes
+//             junit '**/target/surefire-reports/*.xml'
+//         }
+//     }
 }
