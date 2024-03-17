@@ -30,5 +30,20 @@ pipeline {
                 sh 'mvn test'
             }
         }
+
+        stage('SonarQube analysis') {
+                    steps {
+                        // Executa a análise do SonarQube
+                        withSonarQubeEnv('SonarQube') {
+                            sh '''
+                                mvn sonar:sonar \
+                                -Dsonar.projectKey=Estudo-Testes-Unitarios \
+                                -Dsonar.host.url=http://localhost:9000 \
+                                -Dsonar.login=${SONAR_TOKEN}
+                                -Dsonar.java.binaries=target
+                            '''
+                        }
+                    }
+                }
     }
 }
