@@ -16,7 +16,6 @@ pipeline {
             }
         }
 
-
         stage('Build') {
             steps {
                 // Compila o projeto Maven
@@ -39,13 +38,13 @@ pipeline {
                 // Executa a análise do SonarQube e o plugin Maven SonarQube
                 withSonarQubeEnv('SONAR_LOCAL') {
                     sh "${scannerHome}/bin/sonar-scanner"
-                    sh '''
-                    mvn sonar:sonar \
-                    -Dsonar.projectKey=Estudo-Testes-Unitarios \
-                    -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.login=${TokenSonar} \
+                    sh """
+                    mvn sonar:sonar \\
+                    -Dsonar.projectKey=Estudo-Testes-Unitarios \\
+                    -Dsonar.host.url=http://localhost:9000 \\
+                    -Dsonar.login=${SonarToken} \\
                     -Dsonar.java.binaries=target
-                    '''
+                    """
                 }
             }
         }
