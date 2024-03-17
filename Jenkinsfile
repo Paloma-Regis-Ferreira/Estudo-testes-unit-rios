@@ -1,6 +1,10 @@
 pipeline {
     agent any
-    
+
+    environment {
+        TokenSonar = credentials('c3f7a2c29dec71bfd40e3484aed3a3a80d612df5')
+    }
+
     options {
         // Define a estratégia de checkout para especificar a branch
         skipDefaultCheckout(true)
