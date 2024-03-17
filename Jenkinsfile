@@ -36,6 +36,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'SONAR_SCANNER'
                     // Executa a análise do SonarQube
+                    echo "Token do Sonar: ${TokenSonar}"
                     withSonarQubeEnv('SONAR_LOCAL') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
