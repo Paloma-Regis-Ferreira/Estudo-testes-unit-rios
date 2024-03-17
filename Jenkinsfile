@@ -32,18 +32,20 @@ pipeline {
         }
 
         stage('SonarQube analysis') {
-                    steps {
-                        // Executa a análise do SonarQube
-                        withSonarQubeEnv('SonarQube') {
-                            sh '''
-                                mvn sonar:sonar \
-                                -Dsonar.projectKey=Estudo-Testes-Unitarios \
-                                -Dsonar.host.url=http://localhost:9000 \
-                                -Dsonar.login=${SONAR_TOKEN}
-                                -Dsonar.java.binaries=target
-                            '''
-                        }
+            steps {
+                // Executa a análise do SonarQube
+                def scannerHome = tool 'SONAR_SCANNER'
+                    withSonarQubeEnv('SONAR_LOCAL') {
+                        sh "${scannerHome}/bin/sonar-scanner"
+                        sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=Estudo-Testes-Unitarios \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=${TokenSonar}
+                        -Dsonar.java.binaries=target
+                        '''
                     }
-                }
+            }
+        }
     }
 }
