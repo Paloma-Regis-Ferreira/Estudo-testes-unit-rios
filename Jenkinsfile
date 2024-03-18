@@ -45,13 +45,7 @@ pipeline {
                     sh 'echo ${TOKEN}'
                     sh 'echo env'
                     // Executa o plugin Maven SonarQube
-                    sh """
-                    mvn -X sonar:sonar \\
-                    -Dsonar.projectKey=Estudo-Testes-Unitarios \\
-                    -Dsonar.host.url=http://localhost:9000 \\
-                    -Dsonar.login=${TOKEN}
-                    -Dsonar.java.binaries=target
-                    """
+                    sh 'mvn -X sonar:sonar -Dsonar.projectKey=GerenciadorFinanceiroJunit5 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=c3f7a2c29dec71bfd40e3484aed3a3a80d612df5 -Dsonar.java.binaries=target'
                 }
             }
         }
