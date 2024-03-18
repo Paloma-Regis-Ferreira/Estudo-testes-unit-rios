@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TokenSonar = credentials('c3f7a2c29dec71bfd40e3484aed3a3a80d612df5')
+        SONAR_TOKEN = credentials('c3f7a2c29dec71bfd40e3484aed3a3a80d612df5')
     }
 
     options {
@@ -39,8 +39,9 @@ pipeline {
                 // Define o local do scanner do SonarQube
                 script {
                     def scannerHome = tool 'SONAR_SCANNER'
+                    def tokenSonar = env.SONAR_TOKEN
                     // Executa a análise do SonarQube
-                    echo "Token do Sonar: ${TokenSonar}"
+                    echo "Token do Sonar: ${tokenSonar}"
                     withSonarQubeEnv('SONAR_LOCAL') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
@@ -50,7 +51,7 @@ pipeline {
                 mvn sonar:sonar \
                 -Dsonar.projectKey=Estudo-Testes-Unitarios \
                 -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=${TokenSonar}
+                -Dsonar.login=${env.SONAR_TOKEN}
                 -Dsonar.java.binaries=target
                 '''
             }
