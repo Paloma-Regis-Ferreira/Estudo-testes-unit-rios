@@ -20,6 +20,7 @@ pipeline {
             }
         }
 
+
         stage('Build') {
             steps {
                 // Compila o projeto Maven
@@ -36,24 +37,25 @@ pipeline {
 
         stage('SonarQube analysis') {
             steps {
-                // Define o local do scanner do SonarQube
+                // Executa a análise do SonarQube
                 script {
+                    // Define o local do scanner do SonarQube
                     def scannerHome = tool 'SONAR_SCANNER'
-                    def tokenSonar = env.SONAR_TOKEN
-                    // Executa a análise do SonarQube
-                    echo "Token do Sonar: ${tokenSonar}"
                     withSonarQubeEnv('SONAR_LOCAL') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
-                // Executa o plugin Maven SonarQube
-                sh '''
-                mvn sonar:sonar \
-                -Dsonar.projectKey=Estudo-Testes-Unitarios \
-                -Dsonar.host.url=http://localhost:9000 \
-                -Dsonar.login=${env.SONAR_TOKEN}
-                -Dsonar.java.binaries=target
-                '''
+                script {
+                    def tokenSonar = env.SONAR_TOKEN
+                    // Executa o plugin Maven SonarQube
+                    sh '''
+                    mvn sonar:sonar \
+                    -Dsonar.projectKey=Estudo-Testes-Unitarios \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.login=${tokenSonar}
+                    -Dsonar.java.binaries=target
+                    '''
+                }
             }
         }
     }
