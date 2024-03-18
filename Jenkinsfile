@@ -47,7 +47,7 @@ pipeline {
                     mvn sonar:sonar \
                     -Dsonar.projectKey=Estudo-Testes-Unitarios \
                     -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.login=${TOKEN}
+                    -Dsonar.login=${SONAR_LOCAL}
                     -Dsonar.java.binaries=target
                     '''
                 }
