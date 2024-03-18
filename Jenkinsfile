@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        SONAR_TOKEN = credentials('c3f7a2c29dec71bfd40e3484aed3a3a80d612df5')
-    }
-
     options {
         // Define a estratégia de checkout para especificar a branch
         skipDefaultCheckout(true)
@@ -46,13 +42,12 @@ pipeline {
                     }
                 }
                 script {
-                    def tokenSonar = env.SONAR_TOKEN
                     // Executa o plugin Maven SonarQube
                     sh '''
                     mvn sonar:sonar \
                     -Dsonar.projectKey=Estudo-Testes-Unitarios \
                     -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.login=${tokenSonar}
+                    -Dsonar.login=c3f7a2c29dec71bfd40e3484aed3a3a80d612df5
                     -Dsonar.java.binaries=target
                     '''
                 }
