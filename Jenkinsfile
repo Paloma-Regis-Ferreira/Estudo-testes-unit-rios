@@ -47,10 +47,10 @@ pipeline {
                     // Executa o plugin Maven SonarQube
                     sh """
                     mvn -X sonar:sonar \
-                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                    -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.login=c3f7a2c29dec71bfd40e3484aed3a3a80d612df5 \
-                    -Dsonar.java.binaries=target
+                    sonar.projectKey=${SONAR_PROJECT_KEY} \
+                    sonar.host.url=http://localhost:9000 \
+                    sonar.login=c3f7a2c29dec71bfd40e3484aed3a3a80d612df5 \
+                    sonar.java.binaries=target
                     """
                 }
             }
