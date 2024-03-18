@@ -42,6 +42,8 @@ pipeline {
                     }
                 }
                 script {
+                    sh 'echo ${TOKEN}'
+                    sh 'echo env'
                     // Executa o plugin Maven SonarQube
                     sh '''
                     mvn -X sonar:sonar \
