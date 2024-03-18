@@ -45,7 +45,7 @@ pipeline {
                     sh 'echo ${TOKEN}'
                     sh 'echo env'
                     // Executa o plugin Maven SonarQube
-                    sh 'mvn -X sonar:sonar -Dsonar.projectKey=GerenciadorFinanceiroJunit5 -Dsonar.host.url=http://localhost:9000 -Dsonar.login=6ce6ccc1c351787d09b807f768c01269958aac88 -Dsonar.java.binaries=target'
+                    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar'
                 }
             }
         }
