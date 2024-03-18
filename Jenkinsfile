@@ -45,7 +45,13 @@ pipeline {
                     sh 'echo ${TOKEN}'
                     sh 'echo env'
                     // Executa o plugin Maven SonarQube
-                    sh 'mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar'
+                    sh """
+                    mvn -X sonar:sonar \
+                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                    -Dsonar.host.url=http://localhost:9000 \
+                    -Dsonar.login=c3f7a2c29dec71bfd40e3484aed3a3a80d612df5 \
+                    -Dsonar.java.binaries=target
+                    """
                 }
             }
         }
