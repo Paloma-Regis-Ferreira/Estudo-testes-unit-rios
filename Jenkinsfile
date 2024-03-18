@@ -44,10 +44,10 @@ pipeline {
                 script {
                     // Executa o plugin Maven SonarQube
                     sh '''
-                    mvn sonar:sonar \
+                    mvn -X sonar:sonar \
                     -Dsonar.projectKey=Estudo-Testes-Unitarios \
                     -Dsonar.host.url=http://localhost:9000 \
-                    -Dsonar.login=${SONAR_LOCAL}
+                    -Dsonar.login=${TOKEN}
                     -Dsonar.java.binaries=target
                     '''
                 }
