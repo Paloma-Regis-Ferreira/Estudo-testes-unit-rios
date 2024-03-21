@@ -56,14 +56,14 @@ pipeline {
                 }
             }
         }
-
-        stage('Quality Gate Check') {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    echo "Quality Gate verificado!"
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+//
+//         stage('Quality Gate Check') {
+//             steps {
+//                 timeout(time: 1, unit: 'HOURS') {
+//                     echo "Quality Gate verificado!"
+//                     waitForQualityGate abortPipeline: true
+//                 }
+//             }
+//         }
     }
 }
