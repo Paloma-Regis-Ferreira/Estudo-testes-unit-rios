@@ -31,29 +31,20 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
-            steps {
-                // Executa a análise do SonarQube
-                script {
-                    // Define o local do scanner do SonarQube
-                    def scannerHome = tool 'SONAR_SCANNER'
-                    withSonarQubeEnv('SONAR_LOCAL') {
-                        sh "${scannerHome}/bin/sonar-scanner"
-                    }
+       stage('SonarQube Analysis') {
+           def mvn = tool 'Default Maven';
+           withSonarQubeEnv() {
+               sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
+           }
+       }
+
+       stage('Quality Gate Check') {
+           steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    echo "Quality Gate verificado!"
+                    waitForQualityGate abortPipeline: true
                 }
-                script {
-                    sh 'echo ${TOKEN}'
-                    sh 'echo env'
-                    // Executa o plugin Maven SonarQube
-                    sh """
-                    mvn -X sonar:sonar \
-                    sonar.projectKey=${SONAR_PROJECT_KEY} \
-                    sonar.host.url=http://localhost:9000 \
-                    sonar.login=c3f7a2c29dec71bfd40e3484aed3a3a80d612df5 \
-                    sonar.java.binaries=target
-                    """
-                }
-            }
-        }
+           }
+       }
     }
 }
