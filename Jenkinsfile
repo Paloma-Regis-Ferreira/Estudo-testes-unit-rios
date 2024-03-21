@@ -1,12 +1,24 @@
 pipeline {
     agent any
 
-    options {
-        // Define a estratégia de checkout para especificar a branch
-        skipDefaultCheckout(true)
+    environment {
+        // Defina a variável M2_HOME para o diretório onde o Maven está montado no contêiner do Jenkins
+        M2_HOME = '/usr/share/maven'
     }
 
     stages {
+        stage('Setup Maven') {
+            steps {
+                // Configura o Maven no contêiner do Jenkins
+                script {
+                    // Define a ferramenta Maven para o Jenkins
+                    def mvnHome = tool 'Maven'
+                    // Adiciona o Maven ao PATH
+                    env.PATH = "${mvnHome}/bin:${env.PATH}"
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 // Clona o repositório do GitHub e verifica a branch main
@@ -34,7 +46,7 @@ pipeline {
             steps {
                 script {
                     // Define o Maven como a ferramenta padrão
-                    def mvn = tool 'Default Maven'
+                    def mvn = tool 'Maven'
                     // Executa a análise do SonarQube
                     withSonarQubeEnv() {
                         sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
