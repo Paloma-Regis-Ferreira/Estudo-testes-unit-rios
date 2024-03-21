@@ -47,8 +47,10 @@ pipeline {
                 script {
                     // Define o Maven como a ferramenta padrão
                     def mvn = tool 'Maven'
+                    // Endereço IP do contêiner do SonarQube
+                    def sonarqubeIP = '172.19.0.2'
                     // Executa a análise do SonarQube
-                    withSonarQubeEnv() {
+                    withSonarQubeEnv(serverUrl: "http://${sonarqubeIP}:9000") {
                         sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.host.url=http://sonarqube_container:9000 -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
                     }
                 }
