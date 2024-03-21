@@ -16,7 +16,6 @@ pipeline {
             }
         }
 
-
         stage('Build') {
             steps {
                 // Compila o projeto Maven
@@ -31,20 +30,26 @@ pipeline {
             }
         }
 
-       stage('SonarQube Analysis') {
-           def mvn = tool 'Default Maven';
-           withSonarQubeEnv() {
-               sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
-           }
-       }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Define o Maven como a ferramenta padrão
+                    def mvn = tool 'Default Maven'
+                    // Executa a análise do SonarQube
+                    withSonarQubeEnv() {
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
+                    }
+                }
+            }
+        }
 
-       stage('Quality Gate Check') {
-           steps {
+        stage('Quality Gate Check') {
+            steps {
                 timeout(time: 1, unit: 'HOURS') {
                     echo "Quality Gate verificado!"
                     waitForQualityGate abortPipeline: true
                 }
-           }
-       }
+            }
+        }
     }
 }
