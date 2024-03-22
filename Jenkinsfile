@@ -64,10 +64,10 @@ pipeline {
             }
         }
 
-        stage('Quality Gate Check') {
-            steps {
+        post {
+            always {
+                // Define a condição para falhar o build caso o Quality Gate não seja atendido
                 timeout(time: 10, unit: 'MINUTES') {
-                    echo "Quality Gate verificado!"
                     waitForQualityGate abortPipeline: true
                 }
             }
