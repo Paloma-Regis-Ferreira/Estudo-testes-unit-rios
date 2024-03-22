@@ -42,6 +42,13 @@ pipeline {
             }
         }
 
+        stage('Test and Coverage') {
+            steps {
+                // Executa os testes com JaCoCo e gera relatórios de cobertura
+                sh 'mvn clean test jacoco:report'
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
