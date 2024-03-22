@@ -68,6 +68,7 @@ pipeline {
     post {
         always {
             // Define a condição para falhar o build caso o Quality Gate não seja atendido
+            sleep(5)
             timeout(time: 10, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true, credentialsId: 'sqa_27d8a7250e4adc7dc02779c20c1119dd97c54985'
             }
