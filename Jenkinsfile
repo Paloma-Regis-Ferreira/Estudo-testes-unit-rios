@@ -69,7 +69,7 @@ pipeline {
         always {
             // Define a condição para falhar o build caso o Quality Gate não seja atendido
             sleep(5)
-            timeout(time: 10, unit: 'MINUTES') {
+            timeout(time: 1, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true
             }
         }
