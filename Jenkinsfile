@@ -1,10 +1,3 @@
-def qualitGateValidation(qg){
-    if (qg.status != 'OK') {
-        return true
-    }
-    return false
-}
-
 pipeline {
     agent any
 
