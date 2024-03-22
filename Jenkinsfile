@@ -63,15 +63,14 @@ pipeline {
                 }
             }
         }
-    }
 
-    post {
-        always {
-            // Define a condição para falhar o build caso o Quality Gate não seja atendido
-            sleep(5)
-            timeout(time: 1, unit: 'MINUTES') {
+        stage('Quality Gate'){
+            steps{
+                sleep(5)
+                timeout(time: 1, unit: 'MINUTES') {
                 waitForQualityGate abortPipeline: true
-            }
+                }
+            }// Define a condição para falhar o build caso o Quality Gate não seja atendido
         }
     }
 }
