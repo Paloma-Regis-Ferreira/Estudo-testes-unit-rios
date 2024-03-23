@@ -68,7 +68,7 @@
 				<configuration>
 					<excludes>
 						<exclude>**/infra/*</exclude>
-						<exclude>**/barriga/*</exclude>
+						<exclude>**/barriga/domain/*</exclude>
 						<exclude>**/exceptions/*</exclude>
 					</excludes>
 				</configuration>
