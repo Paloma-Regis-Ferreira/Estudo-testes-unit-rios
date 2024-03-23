@@ -45,7 +45,7 @@ pipeline {
         stage('Test and Coverage') {
             steps {
                 // Executa os testes com JaCoCo e gera relatórios de cobertura
-                sh 'mvn clean test jacoco:report -Djacoco.excludes=**/com/estudodetestes/GerenciadorFinanceiroJunit5/barriga/**/*.class,**/com/estudodetestes/GerenciadorFinanceiroJunit5/exceptions/**/*.class,**/com/estudodetestes/GerenciadorFinanceiroJunit5/infra/**/*.class'
+                sh 'mvn clean test jacoco:report -Djacoco.excludes=**/barriga/**/*.class,**/exceptions/**/*.class,**/infra/**/*.class'
             }
         }
 
