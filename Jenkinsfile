@@ -4,6 +4,7 @@ pipeline {
     environment {
         // Defina a variável M2_HOME para o diretório onde o Maven está montado no contêiner do Jenkins
         M2_HOME = '/usr/share/maven'
+        MVN = tool 'Maven'
     }
 
     stages {
@@ -12,9 +13,9 @@ pipeline {
                 // Configura o Maven no contêiner do Jenkins
                 script {
                     // Define a ferramenta Maven para o Jenkins
-                    def mvnHome = tool 'Maven'
+//                     def mvnHome = tool 'Maven'
                     // Adiciona o Maven ao PATH
-                    env.PATH = "${mvnHome}/bin:${env.PATH}"
+                    env.PATH = "${MVN}/bin:${env.PATH}"
                 }
             }
         }
@@ -35,6 +36,7 @@ pipeline {
             }
         }
 
+//no passo acima ja usou o clean. Nao usar mais e trabalhar com o mesmo binario gerado no passo anterior para os proximos stages
         stage('Test') {
             steps {
                 // Executa os testes
@@ -45,7 +47,7 @@ pipeline {
         stage('Test and Coverage') {
             steps {
                 // Executa os testes com JaCoCo e gera relatórios de cobertura
-                sh 'mvn clean test jacoco:report'
+                sh 'mvn test jacoco:report'
             }
         }
 
