@@ -48,7 +48,7 @@ pipeline {
             }
         }
 
-        stage('Sonar curso'){
+        stage('Sonar curso'){ //com as variaveis definidas no jenkins
             environment{
                 scannerHome = tool 'SONAR_SCANNER'
             }
@@ -59,7 +59,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') { //sem as variaveis definidas no jenkins
             steps {
                 script {
                     // Endereço IP do contêiner do SonarQube
@@ -74,11 +74,22 @@ pipeline {
 
         stage('Quality Gate'){
             steps{
-                sleep(5)
-                timeout(time: 1, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
+                script {
+                    def serverUrl = 'http://seu-servidor-sonarqube'
+                    def taskId = waitForQualityGate()
+                    def qg = waitForQualityGate() // Executa a análise no servidor do SonarQube e aguarda o resultado do Quality Gate
+                    echo "Status do Quality Gate: ${qg}"
                 }
             }// Define a condição para falhar o build caso o Quality Gate não seja atendido
+        }
+
+        def waitForQualityGate() {
+            // Analisa a saída do scanner do SonarQube para obter o ID da tarefa
+            def qg = waitForQualityGate() // Executa a análise no servidor do SonarQube e aguarda o resultado do Quality Gate
+            if (qg.status != 'OK') {
+                error "Failed to pass the Quality Gate. Check SonarQube dashboard for details: http://172.19.0.3:9000/dashboard?id=${env.JOB_NAME}"
+            }
+            return qg
         }
     }
 }
