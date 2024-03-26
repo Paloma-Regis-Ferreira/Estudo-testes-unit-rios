@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Defina a variável M2_HOME para o diretório onde o Maven está montado no contêiner do Jenkins
-        M2_HOME = '/usr/share/maven'
+        // Defina a variável MVN para o diretório onde o Maven está montado no contêiner do Jenkins
         MVN = tool 'Maven'
     }
 
@@ -13,8 +12,6 @@ pipeline {
                 // Configura o Maven no contêiner do Jenkins
                 script {
                     // Define a ferramenta Maven para o Jenkins
-//                     def mvnHome = tool 'Maven'
-                    // Adiciona o Maven ao PATH
                     env.PATH = "${MVN}/bin:${env.PATH}"
                 }
             }
@@ -51,16 +48,25 @@ pipeline {
             }
         }
 
+        stage('Sonar curso'){
+            environment{
+                scannerHome = tool 'SONAR_SCANNER'
+            }
+            steps{
+                withSonarQubeEnv('SONAR_LOCAL'){
+                    sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName=Estudo-testes-unitarios"
+                }
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    // Define o Maven como a ferramenta padrão
-                    def mvn = tool 'Maven'
                     // Endereço IP do contêiner do SonarQube
                     def sonarqubeIP = '172.19.0.3'
                     // Executa a análise do SonarQube
                     withSonarQubeEnv(serverUrl: "http://${sonarqubeIP}:9000") {
-                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
+                        sh "${MVN}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
                     }
                 }
             }
