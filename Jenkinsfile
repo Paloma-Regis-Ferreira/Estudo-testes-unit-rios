@@ -72,24 +72,23 @@ pipeline {
             }
         }
 
-        stage('Quality Gate'){
-            steps{
+        stage('Quality Gate') {
+            steps {
                 script {
                     def serverUrl = 'http://seu-servidor-sonarqube'
-                    def taskId = waitForQualityGate()
-                    def qg = waitForQualityGate() // Executa a análise no servidor do SonarQube e aguarda o resultado do Quality Gate
+                    def qg = waitForQualityGate()
                     echo "Status do Quality Gate: ${qg}"
+                    if (qg.status != 'OK') {
+                        error "Failed to pass the Quality Gate. Check SonarQube dashboard for details: http://172.19.0.3:9000/dashboard?id=${env.JOB_NAME}"
+                    }
                 }
-            }// Define a condição para falhar o build caso o Quality Gate não seja atendido
-        }
-
-        def waitForQualityGate() {
-            // Analisa a saída do scanner do SonarQube para obter o ID da tarefa
-            def qg = waitForQualityGate() // Executa a análise no servidor do SonarQube e aguarda o resultado do Quality Gate
-            if (qg.status != 'OK') {
-                error "Failed to pass the Quality Gate. Check SonarQube dashboard for details: http://172.19.0.3:9000/dashboard?id=${env.JOB_NAME}"
             }
-            return qg
         }
     }
+}
+
+def waitForQualityGate() {
+    // Analisa a saída do scanner do SonarQube para obter o ID da tarefa
+    def qg = waitForQualityGate() // Executa a análise no servidor do SonarQube e aguarda o resultado do Quality Gate
+    return qg
 }
