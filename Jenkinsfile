@@ -54,7 +54,7 @@ pipeline {
             }
             steps{
                 withSonarQubeEnv('SONAR_LOCAL'){
-                    sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName=Estudo-testes-unitarios"
+                    sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.host.url=http://172.19.0.3:9000 -Dsonar.java.binaries=target"
                 }
             }
         }
