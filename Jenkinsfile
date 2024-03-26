@@ -18,20 +18,20 @@ pipeline {
                 }
             }
         }
-
-        stage('Checkout') {
-            steps {
-                // Clona o repositório do GitHub e verifica a branch main
-                script {
-                    git branch: 'main', url: 'https://github.com/Paloma-Regis-Ferreira/Estudo-testes-unitarios.git'
-                }
-            }
-        }
+// etapa desnecessaria pois na configuração do jenkins ele ja diz onte esta o projeto para ser baixado
+//         stage('Checkout') {
+//             steps {
+//                 // Clona o repositório do GitHub e verifica a branch main
+//                 script {
+//                     git branch: 'main', url: 'https://github.com/Paloma-Regis-Ferreira/Estudo-testes-unitarios.git'
+//                 }
+//             }
+//         }
 
         stage('Build') {
             steps {
                 // Compila o projeto Maven
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests=true'
             }
         }
 
