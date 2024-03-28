@@ -76,17 +76,9 @@ pipeline {
             steps {
                 script {
                     sleep(60)
-                    timeout(time: 2, unit: 'MINUTES') {
-                        // Executa o comando waitForQualityGate para esperar pelo resultado do Quality Gate
-                        // Aborta o pipeline se o Quality Gate falhar
+                    timeout(time: 2, unit: 'MINUTES') {=
                         def qgResult = waitForQualityGate abortPipeline: true
                         echo "Status do Quality Gate: ${qgResult}"
-                        if (qgResult != 'SUCCESS' && qgResult != 'OK') {
-                            // Se o Quality Gate não passou, capturamos a causa e a exibimos no console do Jenkins
-                            def qgDetails = waitForQualityGate getDetails: true
-                            echo "Detalhes do Quality Gate: ${qgDetails}"
-                            error "Failed to pass the Quality Gate. Check SonarQube dashboard for details: http://172.19.0.3:9000/dashboard?id=${env.JOB_NAME}"
-                        }
                     }
                 }
             }
