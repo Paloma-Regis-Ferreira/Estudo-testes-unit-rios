@@ -81,7 +81,7 @@ pipeline {
                         // Aborta o pipeline se o Quality Gate falhar
                         def qgResult = waitForQualityGate abortPipeline: true
                         echo "Status do Quality Gate: ${qgResult}"
-                        if (qgResult != 'OK') {
+                        if (qgResult != 'SUCCESS') {
                             // Se o Quality Gate não passou, capturamos a causa e a exibimos no console do Jenkins
                             def qgDetails = waitForQualityGate getDetails: true
                             echo "Detalhes do Quality Gate: ${qgDetails}"
