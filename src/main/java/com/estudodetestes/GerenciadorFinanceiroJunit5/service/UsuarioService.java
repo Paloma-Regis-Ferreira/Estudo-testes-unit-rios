@@ -29,12 +29,12 @@ public class UsuarioService {
         return repository.getByEmail(email);
     }
 
-    public void doSomethingWithMap(Map<String,Object> map) throws SQLException {
-        for (String key : map.keySet()) {  // Noncompliant; for each key the value is retrieved
-            Object value = map.get(key);
-
-            Connection conn = DriverManager.getConnection("jdbc:derby:memory:myDB;create=true", "login", ""); // Noncompliant
-
-        }
-    }
+//    public void doSomethingWithMap(Map<String,Object> map) throws SQLException {
+//        for (String key : map.keySet()) {  // Noncompliant; for each key the value is retrieved
+//            Object value = map.get(key);
+//
+//            Connection conn = DriverManager.getConnection("jdbc:derby:memory:myDB;create=true", "login", ""); // Noncompliant
+//
+//        }
+//    }
 }
