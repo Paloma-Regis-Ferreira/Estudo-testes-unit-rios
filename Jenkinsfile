@@ -48,29 +48,29 @@ pipeline {
             }
         }
 
-        stage('Sonar curso'){ //com as variaveis definidas no jenkins
-            environment{
-                scannerHome = tool 'SONAR_SCANNER'
-            }
-            steps{
-                withSonarQubeEnv('SONAR_LOCAL'){
-                    sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.host.url=http://172.19.0.3:9000 -Dsonar.java.binaries=target"
-                }
-            }
-        }
-
-//         stage('SonarQube Analysis') { //sem as variaveis definidas no jenkins
-//             steps {
-//                 script {
-//                     // Endereço IP do contêiner do SonarQube
-//                     def sonarqubeIP = '172.19.0.3'
-//                     // Executa a análise do SonarQube
-//                     withSonarQubeEnv(serverUrl: "http://${sonarqubeIP}:9000") {
-//                         sh "${MVN}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
-//                     }
+//         stage('Sonar curso'){ //com as variaveis definidas no jenkins
+//             environment{
+//                 scannerHome = tool 'SONAR_SCANNER'
+//             }
+//             steps{
+//                 withSonarQubeEnv('SONAR_LOCAL'){
+//                     sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.host.url=http://172.19.0.3:9000 -Dsonar.java.binaries=target"
 //                 }
 //             }
 //         }
+
+        stage('SonarQube Analysis') { //sem as variaveis definidas no jenkins
+            steps {
+                script {
+                    // Endereço IP do contêiner do SonarQube
+                    def sonarqubeIP = '172.19.0.3'
+                    // Executa a análise do SonarQube
+                    withSonarQubeEnv(serverUrl: "http://${sonarqubeIP}:9000") {
+                        sh "${MVN}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
+                    }
+                }
+            }
+        }
 
         stage('Quality Gate') {
             steps {
