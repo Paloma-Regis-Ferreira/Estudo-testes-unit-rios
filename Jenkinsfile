@@ -48,17 +48,6 @@ pipeline {
             }
         }
 
-//         stage('Sonar curso'){ //com as variaveis definidas no jenkins
-//             environment{
-//                 scannerHome = tool 'SONAR_SCANNER'
-//             }
-//             steps{
-//                 withSonarQubeEnv('SONAR_LOCAL'){
-//                     sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.host.url=http://172.19.0.3:9000 -Dsonar.java.binaries=target"
-//                 }
-//             }
-//         }
-
         stage('SonarQube Analysis') { //sem as variaveis definidas no jenkins
             steps {
                 script {
