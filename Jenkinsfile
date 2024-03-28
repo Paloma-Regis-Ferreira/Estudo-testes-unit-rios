@@ -76,9 +76,9 @@ pipeline {
             steps {
                 script {
                     sleep(60)
-                    timeout(time: 2, unit: 'MINUTES') {=
+                    timeout(time: 2, unit: 'MINUTES') {
                         def qgResult = waitForQualityGate abortPipeline: true
-                        echo "Status do Quality Gate: ${qgResult}"
+                        echo "Status do Quality Gate: ${qgResult}
                     }
                 }
             }
