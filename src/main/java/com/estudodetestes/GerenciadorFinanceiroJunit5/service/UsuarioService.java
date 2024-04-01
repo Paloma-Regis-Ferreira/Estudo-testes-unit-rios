@@ -4,10 +4,6 @@ import com.estudodetestes.GerenciadorFinanceiroJunit5.barriga.domain.Usuario;
 import com.estudodetestes.GerenciadorFinanceiroJunit5.exceptions.ValidationException;
 import com.estudodetestes.GerenciadorFinanceiroJunit5.service.repositories.UsuarioRepository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Map;
 import java.util.Optional;
 
 public class UsuarioService {
@@ -29,12 +25,4 @@ public class UsuarioService {
         return repository.getByEmail(email);
     }
 
-//    public void doSomethingWithMap(Map<String,Object> map) throws SQLException {
-//        for (String key : map.keySet()) {  // Noncompliant; for each key the value is retrieved
-//            Object value = map.get(key);
-//
-//            Connection conn = DriverManager.getConnection("jdbc:derby:memory:myDB;create=true", "login", ""); // Noncompliant
-//
-//        }
-//    }
 }
