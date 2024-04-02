@@ -54,7 +54,7 @@ pipeline {
                     // Endereço IP do contêiner do SonarQube
                     def sonarqubeIP = '172.19.0.3'
                     // Executa a análise do SonarQube
-                    withSonarQubeEnv(serverUrl: "http://${sonarqubeIP}:9000") {
+                    withSonarQubeEnv() {
                         sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=teste -Dsonar.projectName='teste'"
                     }
                 }
