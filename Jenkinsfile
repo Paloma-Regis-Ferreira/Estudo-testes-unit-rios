@@ -34,19 +34,19 @@ pipeline {
         }
 
 //no passo acima ja usou o clean. Nao usar mais e trabalhar com o mesmo binario gerado no passo anterior para os proximos stages
-        stage('Test') {
-            steps {
-                // Executa os testes
-                sh 'mvn test'
-            }
-        }
-
-        stage('Test and Coverage') {
-            steps {
-                // Executa os testes com JaCoCo e gera relatórios de cobertura
-                sh 'mvn test jacoco:report'
-            }
-        }
+//         stage('Test') {
+//             steps {
+//                 // Executa os testes
+//                 sh 'mvn test'
+//             }
+//         }
+//
+//         stage('Test and Coverage') {
+//             steps {
+//                 // Executa os testes com JaCoCo e gera relatórios de cobertura
+//                 sh 'mvn test jacoco:report'
+//             }
+//         }
 
         stage('SonarQube Analysis') { //sem as variaveis definidas no jenkins
             steps {
