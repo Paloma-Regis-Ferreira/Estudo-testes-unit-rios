@@ -67,11 +67,9 @@ pipeline {
             }
         }
 
-        stages {
-            stage('Print Message') {
-                steps {
-                    echo 'Esta é uma mensagem de exemplo'
-                }
+        stage('Print Message') {
+            steps {
+                echo 'Esta é uma mensagem de exemplo'
             }
         }
     }
