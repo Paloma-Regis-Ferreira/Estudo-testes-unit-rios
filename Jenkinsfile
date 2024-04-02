@@ -35,7 +35,7 @@ pipeline {
 
 //no passo acima ja usou o clean. Nao usar mais o "clean" e trabalhar com o mesmo binario gerado no passo anterior para os proximos stages
         stage('Test and Coverage') {
-               failFast true
+            failFast true
             steps {
                 // Executa os testes com JaCoCo e gera relatórios de cobertura
                 sh 'mvn test jacoco:report'
