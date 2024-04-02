@@ -55,7 +55,7 @@ pipeline {
                     def sonarqubeIP = '172.19.0.3'
                     // Executa a análise do SonarQube
                     withSonarQubeEnv() {
-                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=teste -Dsonar.projectName='teste'"
+                        sh "${MVN}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Estudo-testes-unitarios -Dsonar.projectName='Estudo-testes-unitarios'"
                     }
                 }
             }
