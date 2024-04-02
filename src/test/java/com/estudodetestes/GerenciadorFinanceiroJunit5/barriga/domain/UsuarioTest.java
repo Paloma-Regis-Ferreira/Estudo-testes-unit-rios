@@ -86,7 +86,7 @@ class UsuarioTest {
         ValidationException ex = assertThrows(ValidationException.class, () ->
                 umUsuario().comEmail(null).agora()
         );
-        assertEquals("Email é obrigatori", ex.getMessage());
+        assertEquals("Email é obrigatorio", ex.getMessage());
     }
 
     @Test
