@@ -5,7 +5,11 @@ import com.estudodetestes.GerenciadorFinanceiroJunit5.exceptions.ValidationExcep
 import com.estudodetestes.GerenciadorFinanceiroJunit5.service.external.RelogioService;
 import com.estudodetestes.GerenciadorFinanceiroJunit5.service.repositories.TransacaoDAO;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class TransacaoService {
 
@@ -69,5 +73,14 @@ public class TransacaoService {
         if (transacao.getData() == null) throw new ValidationException("Data inexistente");
         if (transacao.getConta() == null) throw new ValidationException("Conta inexistente");
         if (transacao.getStatus() == null) transacao.setStatus(false);
+    }
+
+        public void doSomethingWithMap(Map<String,Object> map) throws SQLException {
+        for (String key : map.keySet()) {  // Noncompliant; for each key the value is retrieved
+            Object value = map.get(key);
+
+            Connection conn = DriverManager.getConnection("jdbc:derby:memory:myDB;create=true", "login", ""); // Noncompliant
+
+        }
     }
 }
